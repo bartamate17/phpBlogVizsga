@@ -36,13 +36,13 @@ class articleModel extends CI_Model
     }
 
 
-    public function getSideArticles($count = 6)
+    public function getSideArticles($count = 12)
     {
         $count = (int)$count;
 
         $sql = "SELECT id,cim,rovidtartalom,tartalom, image, megjelenesdatuma,szerzo_id,temakor_id 
         FROM bejegyzes
-        ORDER BY megjelenesdatuma LIMIT " . $count;
+        ORDER BY megjelenesdatuma DESC LIMIT " . $count;
 
         $query = $this->db->query($sql);
         //tömbben adja vissza a query-t
@@ -85,7 +85,6 @@ class articleModel extends CI_Model
 
     public function getArticlesByAuthor($id, $count = 5)
     {
-
         $id = (int)$id;
 
         //(int) védelem, ha nem integer lesz az érték 0-át ad vissza értéknek
@@ -145,7 +144,7 @@ class articleModel extends CI_Model
 
     public function getAuthors()
     {
-        $sql = "SELECT vezeteknev, utonev  FROM szerzo";
+        $sql = "SELECT vezeteknev, utonev, szerzo.id as azonosito  FROM szerzo";
 
         $query = $this->db->query($sql);
         //tömbben adja vissza a query-t

@@ -263,6 +263,11 @@ div#preloader {
     font-weight: 600;
 }
 
+.img-fluid-mainPicture {
+    max-width: 10%;
+    margin-right: 25px;
+}
+
 
 /*--------------------------------------------------------------
 # Header

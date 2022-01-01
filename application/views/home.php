@@ -26,39 +26,27 @@
     <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
-
-    <!-- =======================================================
-  * Template Name: eBusiness - v4.7.0
-  * Template URL: https://bootstrapmade.com/ebusiness-bootstrap-corporate-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
-
-    <!-- ======= Header ======= -->
+    <!-- HEADER -->
     <header id="header" class="fixed-top d-flex align-items-center">
         <div class="container d-flex justify-content-between">
 
             <div class="logo">
-                <h1><a href="http://localhost/myBlogMate/index.php"><span>sportonline</span>Katalógus</a></h1>
-                <!-- Uncomment below if you prefer to use an image logo -->
-                <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+                <a href="http://localhost/myBlogMate/index.php"></a>
+                <h1><a href="http://localhost/myBlogMate/index.php"><span>sport</span>Online</a></h1>
             </div>
 
             <nav id="navbar" class="navbar">
-
+                <!-- EZT CSINÁLOM MOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOST -->
                 <?php
                 if (isset($temakorok)) {
                     foreach ($temakorok as $tema) {
-
                 ?>
                         <ul>
-                            <li><a class="nav-link scrollto " href="http://localhost/myBlogMate/index.php"><?php print($tema['megnevezes'])  ?></a></li>
+                            <li><a class="nav-link scrollto " href="index.php/home/topic/<?php print($tema['id']) ?>"><?php print($tema['megnevezes'])  ?></a></li>
                             <ul>
                         <?php
                     }
@@ -66,14 +54,14 @@
                         ?>
                             </ul>
                             <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
+            </nav>
+            <!-- NAVBAR -->
 
         </div>
-    </header><!-- End Header -->
+    </header><!-- HEADER -->
 
     <main id="main">
-
-        <!-- ======= Blog Header ======= -->
+        <!-- ======= BLOG HEADER ======= -->
         <div class="header-bg page-area">
             <div class="container position-relative">
                 <div class="row">
@@ -81,16 +69,17 @@
                         <div class="slider-content text-center">
                             <div class="header-bottom">
                                 <div class="layer3">
-                                    <h2 class="title3"><span>sportonline</span>Katalógus - Aktuális hírbörze</h2>
+                                    <h2 class="title3"><img src="assets/img/favicon.png" alt="" class="img-fluid-mainPicture">Az <b><span style="font-size: 40px; text-transform:uppercase">ön</span></b> sportkatalógusa!</h2>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div><!-- End Blog Header -->
+        </div>
+        <!-- END BLOG HEADER -->
 
-        <!-- ======= Blog Page ======= -->
+        <!-- ======= BLOG PAGE ======= -->
         <div class="blog-page area-padding">
             <div class="container">
                 <div class="row">
@@ -98,210 +87,252 @@
                         <div class="page-head-blog">
                             <div class="single-blog-page">
                                 <!-- search option start -->
-                                <form action="#">
+                                <form action="index.php" method="POST">
                                     <div class="search-option">
-                                        <input type="text" placeholder="Search...">
+                                        <input type="text" name="search" placeholder="Keresés">
                                         <button class="button" type="submit">
                                             <i class="bi bi-search"></i>
                                         </button>
                                     </div>
                                 </form>
-                                <!-- search option end -->
                             </div>
+                            <?php
 
-                            <div class="single-blog-page">
-                                <!-- recent start -->
-                                <div class="left-blog">
-                                    <h4>Akutális tartalom</h4>
-                                    <div class="recent-post">
+                            require_once './application/models/formModel.php';
+                            if (isset($_POST['search'])) {
+
+                                $inputName = filter_var($_POST["search"], FILTER_SANITIZE_SPECIAL_CHARS);
+
+                                $con = mysqli_connect($host, $username, $password, $dbname);
+                                if (!$con) {
+                                    echo "Hiba a csatlakozás során: " . mysqli_connect_error();
+                                    exit();
+                                }
+
+                                $sql = "SELECT id,cim,rovidtartalom,tartalom, image, megjelenesdatuma,szerzo_id,temakor_id 
+                                    FROM bejegyzes
+                                    WHERE cim LIKE '%$inputName%' OR rovidtartalom LIKE '%$inputName%' OR tartalom LIKE '%$inputName%'";
+
+                                $result = mysqli_query($con, $sql);
+                                $row = mysqli_fetch_assoc($result);
+                            ?>
+                                <!-- search option end -->
+                                <div class="single-blog-page">
+                                    <!-- recent start -->
+                                    <div class="left-blog">
+                                        <h4>Aktuális tartalom</h4>
                                         <?php
-                                        if (isset($oldalsav)) {
-                                            foreach ($oldalsav as $oldalCikk) {
+                                        if ($row == 0) {
                                         ?>
+                                            <div class="recent-post">
                                                 <!-- start single post -->
                                                 <div class="recent-single-post">
                                                     <div class="post-img">
-                                                        <a href="#">
-                                                            <img src="<?php print($oldalCikk['image']) ?>" alt="">
-                                                        </a>
                                                     </div>
                                                     <div class="pst-content">
-                                                        <p><a href="#"><?php print($oldalCikk['cim']) ?></a></p>
+                                                        <p><?php print('Nincs találat!') ?></p>
                                                     </div>
                                                 </div>
-                                                <!-- End single post -->
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-                                    </div>
-                                </div>
-                                <!-- recent end -->
-                            </div>
-                            <div class="single-blog-page">
-                                <div class="left-blog">
-                                    <h4>Szerkesztőségünk</h4>
-                                    <ul>
-                                        <?php
-                                        if (isset($szerzok)) {
-                                            foreach ($szerzok as $szerzo) {
-                                        ?>
-                                                <li>
-                                                    <a href="#"><?php print('- ' . $szerzo['vezeteknev'] . ' ' . $szerzo['utonev']) ?></a>
-                                                </li>
-                                        <?php
-                                            }
-                                        }
+                                            <?php
+                                        } else {
+                                            ?>
+                                                <div class="recent-post">
+                                                    <!-- start single post -->
+                                                    <div class="recent-single-post">
+                                                        <div class="post-img">
+                                                            <a href="index.php/home/article/<?php print($row['id']) ?>">
+                                                                <img src="<?php print($row['image']) ?>" alt="">
+                                                            </a>
+                                                        </div>
+                                                        <div class="pst-content">
+                                                            <p><a href="index.php/home/article/<?php print($row['id']) ?>"><?php print($row['cim']) ?></a></p>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End single post -->
+                                                <?php
 
-                                        ?>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="single-blog-page">
-                                <div class="left-blog">
-                                    <h4>Archívum</h4>
-                                    <ul>
-                                        <?php
-                                        if (isset($evhonaplink)) {
-                                            foreach ($evhonaplink as $evhonap) {
-                                        ?>
-                                                <li>
-                                                    <a href="index.php/home/yearmonth/<?php print($evhonap['year'] . '/' . $evhonap['month']); ?>"><?php print($evhonap['year'] . " - " . month($evhonap['month']) . " " . "(" . $evhonap['count'] . ")") ?></a>
-                                                </li>
-                                                <!--<li>
-                                            <a href="#">29 June 2016</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">13 May 2016</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">20 March 2016</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">09 Fabruary 2016</a>
-                                        </li> -->
-                                        <?php
-                                            }
-                                        }
-                                        ?>
+                                                mysqli_free_result($result);
 
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="single-blog-page">
-                                <div class="left-tags blog-tags">
-                                    <div class="popular-tag left-side-tags left-blog">
-                                        <h4>Közkedvelt témák</h4>
-                                        <ul>
-                                            <li>
-                                                <a href="#">Foci</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Kézilabda</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Sakk</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Ketrecharc</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Olimpia</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Fitnesz</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Darts</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Tenisz</a>
-                                            </li>
-                                        </ul>
+                                                mysqli_close($con);
+                                            }
+                                        } else {
+                                            if (isset($oldalsav)) {
+                                                ?>
+                                                    <div class="single-blog-page">
+                                                        <!-- recent start -->
+                                                        <div class="left-blog">
+                                                            <h4>Aktuális tartalom</h4>
+                                                            <div class="recent-post">
+
+                                                                <?php
+                                                                $countOldalsav = count($oldalsav) - 3;
+                                                                foreach ($oldalsav as $oldalCikk) {
+                                                                    if ($oldalCikk['id'] <= $countOldalsav) {
+                                                                ?>
+                                                                        <!-- start single post -->
+                                                                        <div class="recent-single-post">
+                                                                            <div class="post-img">
+                                                                                <a href="index.php/home/article/<?php print($oldalCikk['id']) ?>">
+                                                                                    <img src="<?php print($oldalCikk['image']) ?>" alt="">
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class="pst-content">
+                                                                                <p><a href="index.php/home/article/<?php print($oldalCikk['id']) ?>"><?php print($oldalCikk['cim']) ?></a></p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End single post -->
+                                                        <?php
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END -->
+
+                                                    <div class="single-blog-page">
+                                                        <div class="left-blog">
+                                                            <h4>Archívum</h4>
+                                                            <ul>
+                                                                <?php
+                                                                if (isset($evhonaplink)) {
+                                                                    foreach ($evhonaplink as $evhonap) {
+                                                                ?>
+                                                                        <li>
+                                                                            <a href="index.php/home/yearmonth/<?php print($evhonap['year'] . '/' . $evhonap['month']); ?>"><?php print($evhonap['year'] . " - " . month($evhonap['month']) . " " . "(" . $evhonap['count'] . ")") ?></a>
+                                                                        </li>
+                                                                <?php
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END -->
+
+                                                    <div class="single-blog-page">
+                                                        <div class="left-blog">
+                                                            <h4>Szerkesztőségünk</h4>
+                                                            <ul>
+                                                                <?php
+                                                                if (isset($szerzok)) {
+                                                                    foreach ($szerzok as $szerzo) {
+                                                                ?>
+                                                                        <li>
+                                                                            <a href="index.php/home/author/<?php print($szerzo['azonosito']) ?>"><?php print($szerzo['vezeteknev'] . ' ' . $szerzo['utonev']) ?></a>
+                                                                        </li>
+                                                                <?php
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END -->
+
+                                                    <div class="single-blog-page">
+                                                        <div class="left-tags blog-tags">
+                                                            <div class="popular-tag left-side-tags left-blog">
+                                                                <h4>Támogasd a sportOnline-t!</h4>
+                                                                <a href="https://www.nemzetisport.hu/egyeb_egyeni/tamogatas-ujabb-300-millio-forint-a-sportegyesuleteknek-2858327" class="ready-btn text-center"><img src="assets/img/favicon.png" class="w-100" alt="" srcset=""></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END LEFT SIDEBAR -->
+
+                                            <!-- Start single blog -->
+                                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <?php
+                                                        if (isset($bejegyzesek)) {
+                                                            foreach ($bejegyzesek as $bejegyzes) {
+                                                        ?>
+                                                                <div class="single-blog">
+                                                                    <div class="single-blog-img">
+                                                                        <a href="index.php/home/article/<?php print($bejegyzes['id']) ?>">
+                                                                            <img src="<?php print($bejegyzes['image']) ?>" alt="">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="blog-meta">
+                                                                        <span class="date-type">
+                                                                            <i class="bi bi-calendar"><a href="index.php/home/author/<?php print($bejegyzes['szerzo_id']) ?>"> <?php print($bejegyzes['vezeteknev'] . ' ' . $bejegyzes['utonev']) ?></a></i><?php print($bejegyzes['ev'] . '-' . $bejegyzes['honap'] . '-' . $bejegyzes['nap']) ?>
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="blog-text">
+                                                                        <h4 class="display-6">
+                                                                            <a href="index.php/home/article/<?php print($bejegyzes['id']) ?>"><?php print($bejegyzes['cim']) ?></a>
+                                                                        </h4>
+                                                                        <p><?php print($bejegyzes['rovidtartalom']) ?> </p>
+                                                                    </div>
+                                                                    <span>
+                                                                        <a href="index.php/home/article/<?php print($bejegyzes['id']) ?>" class="ready-btn">Elolvasom</a>
+                                                                    </span>
+                                                                </div>
+                                                            <?php
+                                                            }
+                                                        } else if (isset($olvas)) {
+                                                            ?>
+                                                            <div class="single-blog">
+                                                                <div class="single-blog-img">
+                                                                    <a>
+                                                                        <img src="<?php print($olvas['image']) ?>" alt="">
+                                                                    </a>
+                                                                </div>
+                                                                <div class="blog-meta">
+                                                                    <span class="date-type">
+                                                                        <i class="bi bi-calendar"><a href="index.php/home/author/<?php print($olvas['szerzo_id']) ?>"> <?php print($olvas['vezeteknev'] . ' ' . $olvas['utonev']) ?></a></i><?php print($olvas['ev'] . '-' . $olvas['honap'] . '-' . $olvas['nap']) ?>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="blog-text">
+                                                                    <h4 class="display-6">
+                                                                        <a><?php print($olvas['cim']) ?></a>
+                                                                    </h4>
+                                                                    <p><?php print($olvas['tartalom']) ?> </p>
+                                                                </div>
+                                                            </div>
+                                                            <?php
+                                                        } else if (isset($temakorokOlvas)) {
+                                                            foreach ($temakorokOlvas as $OlvasById) {
+                                                            ?>
+                                                                <div class="single-blog">
+                                                                    <div class="single-blog-img">
+                                                                        <a>
+                                                                            <img src="<?php print($OlvasById['image']) ?>" alt="">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="blog-meta">
+                                                                        <span class="date-type">
+                                                                            <i class="bi bi-calendar"><a href="index.php/home/author/<?php print($OlvasById['szerzoid']) ?>"> <?php print($OlvasById['vezeteknev'] . ' ' . $OlvasById['utonev']) ?></a></i><?php print($OlvasById['ev'] . '-' . $OlvasById['honap'] . '-' . $OlvasById['nap']) ?>
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="blog-text">
+                                                                        <h4 class="display-6">
+                                                                            <a><?php print($OlvasById['cim']) ?></a>
+                                                                        </h4>
+                                                                        <p><?php print($OlvasById['tartalom']) ?> </p>
+                                                                    </div>
+                                                                </div>
+                                                        <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                    <!-- END -->
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="single-blog-page">
-                                <div class="left-tags blog-tags">
-                                    <div class="popular-tag left-side-tags left-blog">
-                                        <h4>Támogasd a sportOnline-t!</h4>
-                                        <a href="#" class="ready-btn text-center"><img src="assets/img/favicon.png" class="w-100" alt="" srcset=""></a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                    </div>
-                    <!-- End left sidebar -->
-                    <!-- Start single blog -->
-                    <div class="col-md-8 col-sm-8 col-xs-12">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <?php
-                                if (isset($bejegyzesek)) {
-                                    foreach ($bejegyzesek as $cikk) {
-                                ?>
-                                        <div class="single-blog">
-                                            <div class="single-blog-img">
-                                                <a href="blog-details.html">
-                                                    <img src="<?php print($cikk['image']) ?>" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="blog-meta">
-                                                <span class="date-type">
-                                                    <i class="bi bi-calendar"><a href="index.php/home/topic/<?php print($cikk['szerzo_id']) ?>"> <?php print($cikk['vezeteknev'] . ' ' . $cikk['utonev']) ?></a></i><?php print($cikk['ev'] . '-' . $cikk['honap'] . '-' . $cikk['nap']) ?>
-                                                </span>
-                                            </div>
-                                            <div class="blog-text">
-                                                <h4 class="display-6">
-                                                    <a href="#"><?php print($cikk['cim']) ?></a>
-                                                </h4>
-                                                <p><?php print($cikk['rovidtartalom']) ?> </p>
-                                            </div>
-                                            <span>
-                                                <a href="index.php/home/author/<?php print($cikk['id']) ?>" class="ready-btn">Elolvasom</a>
-                                            </span>
-                                        </div>
-                                    <?php
 
-                                    }
-                                } else if (isset($cikkOlvasas)) {
-                                    ?>
-                                    <div class="single-blog">
-                                        <div class="single-blog-img">
-                                            <a>
-                                                <img src="<?php print($cikkOlvasas['image']) ?>" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="blog-meta">
-                                            <span class="date-type">
-                                                <i class="bi bi-calendar"><a href="index.php/home/topic/<?php print($cikkOlvasas['szerzo_id']) ?>"> <?php print($cikkOlvasas['vezeteknev'] . ' ' . $cikkOlvasas['utonev']) ?></a></i><?php print($cikkOlvasas['ev'] . '-' . $cikkOlvasas['honap'] . '-' . $cikkOlvasas['nap']) ?>
-                                            </span>
-                                        </div>
-                                        <div class="blog-text">
-                                            <h4 class="display-6">
-                                                <a><?php print($cikkOlvasas['cim']) ?></a>
-                                            </h4>
-                                            <p><?php print($cikkOlvasas['tartalom']) ?> </p>
-                                        </div>
-                                    </div>
+                        <!-- End Blog Page -->
+    </main><!-- END MAIN -->
 
-
-                                <?php
-                                }
-                                ?>
-                            </div>
-
-                            <!-- End single blog -->
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!-- End Blog Page -->
-
-    </main><!-- End #main -->
-
-    <!-- ======= Footer ======= -->
+    <!-- ======= FOOTER ======= -->
     <footer>
         <div class="footer-area">
             <div class="container">
@@ -317,16 +348,13 @@
                                 <div class="footer-icons">
                                     <ul>
                                         <li>
-                                            <a href="#"><i class="bi bi-facebook"></i></a>
+                                            <a href="https://www.facebook.com/nsonline/"><i class="bi bi-facebook"></i></a>
                                         </li>
                                         <li>
-                                            <a href="#"><i class="bi bi-twitter"></i></a>
+                                            <a href="https://twitter.com/nsonline"><i class="bi bi-twitter"></i></a>
                                         </li>
                                         <li>
-                                            <a href="#"><i class="bi bi-instagram"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                                            <a href="https://www.instagram.com/nso.hu/?hl=hu"><i class="bi bi-instagram"></i></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -343,8 +371,7 @@
                                 </p>
                                 <div class="footer-contacts">
                                     <p><span>Tel:</span> +123 456 789</p>
-                                    <p><span>Email:</span> contact@example.com</p>
-                                    <p><span>Working Hours:</span> 9am-5pm</p>
+                                    <p><span>Email:</span> sportonline@katalogus.hu</p>
                                 </div>
                             </div>
                         </div>
@@ -360,7 +387,7 @@
                                         foreach ($instagram as $kep) {
 
                                     ?>
-                                            <a href="#"><img src="<?php print($kep['link']) ?>" alt="<?php print($kep['alt']) ?>"></a>
+                                            <a href="https://www.instagram.com/nso.hu/?hl=hu"><img src="<?php print($kep['link']) ?>" alt="<?php print($kep['alt']) ?>"></a>
                                     <?php
                                         }
                                     }

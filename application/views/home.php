@@ -40,7 +40,6 @@
             </div>
 
             <nav id="navbar" class="navbar">
-                <!-- EZT CSINÁLOM MOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOST -->
                 <?php
                 if (isset($temakorok)) {
                     foreach ($temakorok as $tema) {
@@ -150,7 +149,6 @@
                                                     </div>
                                                     <!-- End single post -->
                                                 <?php
-
                                                 mysqli_free_result($result);
 
                                                 mysqli_close($con);
@@ -163,11 +161,10 @@
                                                         <div class="left-blog">
                                                             <h4>Aktuális tartalom</h4>
                                                             <div class="recent-post">
-
                                                                 <?php
                                                                 $countOldalsav = count($oldalsav) - 3;
                                                                 foreach ($oldalsav as $oldalCikk) {
-                                                                    if ($oldalCikk['id'] <= $countOldalsav) {
+                                                                    if ($oldalCikk['id'] < $oldalsav[1]['id'] - 3) {
                                                                 ?>
                                                                         <!-- start single post -->
                                                                         <div class="recent-single-post">

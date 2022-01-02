@@ -2,7 +2,6 @@
 
 class articleModel extends CI_Model
 {
-
     public function getDateArticleCount()
     {
         $sql = "SELECT YEAR(megjelenesdatuma)AS year,
@@ -35,8 +34,7 @@ class articleModel extends CI_Model
         return $query->result_array();
     }
 
-
-    public function getSideArticles($count = 12)
+    public function getSideArticles($count = 14)
     {
         $count = (int)$count;
 
@@ -81,7 +79,6 @@ class articleModel extends CI_Model
         $query = $this->db->query($sql);
         return $query->result_array();
     }
-
 
     public function getArticlesByAuthor($id, $count = 5)
     {

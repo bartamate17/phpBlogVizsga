@@ -11,7 +11,6 @@ class articleModel extends CI_Model
         month ORDER BY year, month DESC";
 
         $query = $this->db->query($sql);
-        //tömbben adja vissza a query-t
         return $query->result_array();
     }
 
@@ -30,7 +29,6 @@ class articleModel extends CI_Model
         ORDER BY megjelenesdatuma DESC LIMIT " . $count;
 
         $query = $this->db->query($sql);
-        //tömbben adja vissza a query-t
         return $query->result_array();
     }
 
@@ -43,7 +41,6 @@ class articleModel extends CI_Model
         ORDER BY megjelenesdatuma DESC LIMIT " . $count;
 
         $query = $this->db->query($sql);
-        //tömbben adja vissza a query-t
         return $query->result_array();
     }
 
@@ -83,8 +80,6 @@ class articleModel extends CI_Model
     public function getArticlesByAuthor($id, $count = 5)
     {
         $id = (int)$id;
-
-        //(int) védelem, ha nem integer lesz az érték 0-át ad vissza értéknek
 
         $sql = "SELECT
         bejegyzes.id,
@@ -144,7 +139,6 @@ class articleModel extends CI_Model
         $sql = "SELECT vezeteknev, utonev, szerzo.id as azonosito  FROM szerzo";
 
         $query = $this->db->query($sql);
-        //tömbben adja vissza a query-t
         return $query->result_array();
     }
 
@@ -153,7 +147,6 @@ class articleModel extends CI_Model
         $sql = "SELECT link, alt FROM instagram";
 
         $query = $this->db->query($sql);
-        //tömbben adja vissza a query-t
         return $query->result_array();
     }
 }

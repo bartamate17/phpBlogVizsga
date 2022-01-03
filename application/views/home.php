@@ -6,7 +6,6 @@
     <!-- Config részben beállított linkre hivatkozás -->
     <base href="<?php print(base_url()) ?>">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
     <title>SportOnline - Az Ön sport katalógusa!</title>
     <meta name="description" content="Sporthírbörze a legfrissebb hírek kavalkádjában!">
     <meta name="keywords" content="Sport, sportOnline, Labdarugás, Kézilabda, Olimpia, Kosárlabda">
@@ -33,7 +32,6 @@
     <!-- HEADER -->
     <header id="header" class="fixed-top d-flex align-items-center">
         <div class="container d-flex justify-content-between">
-
             <div class="logo">
                 <a href="http://localhost/myBlogMate/index.php"></a>
                 <h1><a href="http://localhost/myBlogMate/index.php"><span>sport</span>Online</a></h1>
@@ -46,20 +44,20 @@
                 ?>
                         <ul>
                             <li><a class="nav-link scrollto " href="index.php/home/topic/<?php print($tema['id']) ?>"><?php print($tema['megnevezes'])  ?></a></li>
-                            <ul>
-                        <?php
+                    <?php
                     }
                 }
-                        ?>
-                            </ul>
-                            <i class="bi bi-list mobile-nav-toggle"></i>
+                    ?>
+                    <li><a class="nav-link scrollto " href="https://forum.index.hu/Topic/showTopicList?t=9111320">Fórum</a></li>
+                    <li><a class="nav-link scrollto " href="#footerNavigation">Kapcsolat</a></li>
+                        </ul>
+                        <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
             <!-- NAVBAR -->
-
         </div>
     </header><!-- HEADER -->
 
-    <main id="main">
+    <main id="mainNavigation">
         <!-- ======= BLOG HEADER ======= -->
         <div class="header-bg page-area">
             <div class="container position-relative">
@@ -68,7 +66,7 @@
                         <div class="slider-content text-center">
                             <div class="header-bottom">
                                 <div class="layer3">
-                                    <h2 class="title3"><img src="assets/img/favicon.png" alt="" class="img-fluid-mainPicture">Az <b><span style="font-size: 40px; text-transform:uppercase">ön</span></b> sportkatalógusa!</h2>
+                                    <h2 class="title3"><img src="assets/img/favicon.png" alt="" class="img-fluid-mainPicture">Az <b><span style="font-size: 40px;">Ön</span></b> sportkatalógusa!</h2>
                                 </div>
                             </div>
                         </div>
@@ -95,8 +93,8 @@
                                     </div>
                                 </form>
                             </div>
-                            <?php
 
+                            <?php
                             require_once './application/models/formModel.php';
                             if (isset($_POST['search'])) {
 
@@ -241,7 +239,7 @@
                                             </div>
                                             <!-- END LEFT SIDEBAR -->
 
-                                            <!-- Start single blog -->
+                                            <!-- START SINGLE BLOG -->
                                             <div class="col-md-8 col-sm-8 col-xs-12">
                                                 <div class="row">
                                                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -311,7 +309,10 @@
                                                                         <h4 class="display-6">
                                                                             <a><?php print($OlvasById['cim']) ?></a>
                                                                         </h4>
-                                                                        <p><?php print($OlvasById['tartalom']) ?> </p>
+                                                                        <p><?php print($OlvasById['rovidtartalom']) ?> </p>
+                                                                        <span>
+                                                                            <a href="index.php/home/article/<?php print($OlvasById['id']) ?>" class="ready-btn">Elolvasom</a>
+                                                                        </span>
                                                                     </div>
                                                                 </div>
                                                         <?php
@@ -325,16 +326,16 @@
                                     </div>
                                 </div>
                         </div>
-
                         <!-- End Blog Page -->
-    </main><!-- END MAIN -->
+    </main>
+    <!-- END MAIN -->
 
     <!-- ======= FOOTER ======= -->
     <footer>
         <div class="footer-area">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div id="footerNavigation" class="col-md-4">
                         <div class="footer-content">
                             <div class="footer-head">
                                 <div class="footer-logo">
@@ -345,20 +346,21 @@
                                 <div class="footer-icons">
                                     <ul>
                                         <li>
-                                            <a href="https://www.facebook.com/nsonline/"><i class="bi bi-facebook"></i></a>
+                                            <abbr title="Facebook"><a href="https://www.facebook.com/nsonline/"><i class="bi bi-facebook"></i></a></abbr>
                                         </li>
                                         <li>
-                                            <a href="https://twitter.com/nsonline"><i class="bi bi-twitter"></i></a>
+                                            <abbr title="Twitter"><a href="https://twitter.com/nsonline"><i class="bi bi-twitter"></i></a></abbr>
                                         </li>
                                         <li>
-                                            <a href="https://www.instagram.com/nso.hu/?hl=hu"><i class="bi bi-instagram"></i></a>
+                                            <abbr title="Instagram"><a href="https://www.instagram.com/nso.hu/?hl=hu"><i class="bi bi-instagram"></i></a></abbr>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- end single footer -->
+                    <!-- END SINGLE FOOTER -->
+
                     <div class="col-md-4">
                         <div class="footer-content">
                             <div class="footer-head">
@@ -367,12 +369,13 @@
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
                                 </p>
                                 <div class="footer-contacts">
-                                    <p><span>Tel:</span> +123 456 789</p>
-                                    <p><span>Email:</span> sportonline@katalogus.hu</p>
+                                    <p><span>Tel:</span><a href="tel:+36201234567" style="color: black"> +36 20 123 4567 </a></p>
+                                    <p><span>Email:</span><a href="mailto:sportonline@katalogus.hu" style="color: black"> sportonline@katalogus.hu </a></p>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <!-- end single footer -->
                     <div class="col-md-4">
                         <div class="footer-content">
@@ -382,7 +385,6 @@
                                     <?php
                                     if (isset($instagram)) {
                                         foreach ($instagram as $kep) {
-
                                     ?>
                                             <a href="https://www.instagram.com/nso.hu/?hl=hu"><img src="<?php print($kep['link']) ?>" alt="<?php print($kep['alt']) ?>"></a>
                                     <?php
@@ -396,6 +398,7 @@
                 </div>
             </div>
         </div>
+
         <div class="footer-area-bottom">
             <div class="container">
                 <div class="row">
@@ -406,22 +409,17 @@
                             </p>
                         </div>
                         <div class="credits">
-                            <!--
-              All the links in the footer should remain intact.
-              You can delete the links only if you purchased the pro version.
-              Licensing information: https://bootstrapmade.com/license/
-              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=eBusiness
-            -->
                             Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </footer><!-- End  Footer -->
+    </footer>
+    <!-- END FOOTER -->
 
     <div id="preloader"></div>
-    <a href="http://localhost/myBlogMate/index.php" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a href="#mainNavigation" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

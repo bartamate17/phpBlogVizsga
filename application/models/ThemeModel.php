@@ -8,7 +8,6 @@ class ThemeModel extends CI_Model
 
         $sql = "SELECT id, megnevezes, leiras FROM temakor";
         $query = $this->db->query($sql);
-        //tömbben adja vissza a query-t
         return $query->result_array();
     }
 
@@ -40,7 +39,6 @@ class ThemeModel extends CI_Model
         ORDER BY megjelenesdatuma DESC";
 
         $query = $this->db->query($sql);
-        //tömbben adja vissza a query-t
         return $query->result_array();
     }
 }

@@ -7,8 +7,8 @@ class articleModel extends CI_Model
         $sql = "SELECT YEAR(megjelenesdatuma)AS year,
         MONTH(megjelenesdatuma) AS month, 
         COUNT(*) AS count 
-        FROM bejegyzes GROUP BY year, 
-        month ORDER BY year, month DESC";
+        FROM bejegyzes GROUP BY month, 
+        month ORDER BY year DESC";
 
         $query = $this->db->query($sql);
         return $query->result_array();
